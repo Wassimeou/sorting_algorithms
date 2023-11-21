@@ -1,44 +1,33 @@
 #include "sort.h"
-
 /**
- * selection_sort - Find the lowest number and put it in front
- * @array: Array to sort
- * @size: Size of the array
- *
+ * selection_sort - function that sorts an array of integers in ascending
+ * order using the Selection sort algorithm
+ * @size: size of the array
+ * @array: list with numbers
  */
 void selection_sort(int *array, size_t size)
 {
-	size_t i = 0;
-	size_t j;
-	int temp;
-	int compare;
-	int min_index;
-	int swapped;
+	size_t i, index;
+	int tmp, swap, flag = 0;
 
 	if (array == NULL)
 		return;
-	while (i < size)
+	for (i = 0; i < size; i++)
 	{
-		j = i;
-		compare = array[i];
-		swapped = 0;
-		while (j < size)
+		tmp = i;
+		flag = 0;
+		for (index = i + 1; index < size; index++)
 		{
-			if (compare > array[j])
+			if (array[tmp] > array[index])
 			{
-				compare = array[j];
-				min_index = j;
-				swapped = 1;
+				tmp = index;
+				flag += 1;
 			}
-			j++;
 		}
-		if (swapped == 1)
-		{
-			temp = array[i];
-			array[i] = compare;
-			array[min_index] = temp;
+		swap = array[i];
+		array[i] = array[tmp];
+		array[tmp] = swap;
+		if (flag != 0)
 			print_array(array, size);
-		}
-		i++;
 	}
 }
